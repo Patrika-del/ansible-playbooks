@@ -1,0 +1,163 @@
+---
+
+vnet_list:
+  - name: Env-vnet
+    cidr: 10.0.0.0/16
+
+subnet_list:
+  # - name: Managers-Subnet
+  #   cidr: 10.0.1.0/24
+  #   vnet: Env-vnet
+  # - name: Workers-Subnet
+  #   cidr: 10.0.2.0/24
+  #   vnet: Env-vnet  
+  - name: Admin-Subnet
+    cidr: 10.0.3.0/24
+    vnet: Env-vnet 
+  - name: Instance-Subnet
+    cidr: 10.0.2.0/24
+    vnet: Env-vnet 
+  # - name: Integ-Subnet
+  #   cidr: 10.0.4.0/24
+  #   vnet: Env-vnet 
+  # - name: AppGtw-Subnet
+  #   cidr: 10.0.5.0/24
+  #   vnet: Env-vnet "
+nsg_list:
+#  - name: Managers-NSG
+ # - name: Workers-NSG
+  - name: Admin-NSG
+#  - name: Integ-NSG
+
+
+a_set_list:
+  - name: Managers-A-Set
+    sku: Aligned
+    UD: 1
+    UF: 1
+  - name: Workers-A-Set
+    sku: Aligned
+    UD: 1
+    UF: 1
+
+# pip_list:
+#   - name: admin-vm-pip
+#     allocation_method: Dynamic
+#     sku: Basic
+#   - name: admin-vm-pip
+#     allocation_method: Dynamic
+#     sku: Basic
+#   - name: AGT-pip
+#     allocation_method: Dynamic
+#     sku: Basic
+
+nic_list:
+#   - name: Manager-01-nic
+#     vnet: Env-vnet
+#     subnet: Managers-Subnet
+#     nsg: Managers-NSG
+#     pip: ""
+#   - name: Manager-02-nic
+#     vnet: Env-vnet
+#     subnet: Managers-Subnet
+#     nsg: Managers-NSG
+#     pip: ""
+#   - name: Worker-01-nic
+#     vnet: Env-vnet
+#     subnet: Workers-Subnet
+#     nsg: Workers-NSG
+#     pip: ""
+#   - name: Worker-02-nic
+#     vnet: Env-vnet
+#     subnet: Workers-Subnet
+#     nsg: Workers-NSG
+#     pip: ""
+#   - name: admin-nic
+#     vnet: Env-vnet
+#     subnet: Admin-Subnet
+#     nsg: Admin-NSG
+#     pip: admin-vm-pip
+
+  - name: instance-nic
+    vnet: Env-vnet
+    subnet: Instance-Subnet
+    nsg: Admin-NSG
+    #pip: manageiq-vm-pip
+
+vms_list:
+  # - name: admin-vm
+  #   vmsize: Standard_B1ms
+  #   nic:  admin-nic
+  #   osdisk_type: Standard_LRS
+  #   osdisk_size: 30
+  #   #a_set: Managers-A-Set
+  #   admin_username: labuser00
+  #   admin_password: p2cjHA5UwkkB9e5S
+
+  - name: instance-vm
+    vmsize: Standard_B1ms
+    nic:  instance-nic
+    osdisk_type: Standard_LRS
+    osdisk_size: 30
+    admin_username: labuser00
+    admin_password: p2cjHA5UwkkB9e5S
+
+  # - name: manager-02
+  #   vmsize: Standard_B1s
+  #   nic: Manager-02-nic
+  #   osdisk_type: Standard_LRS
+  #   osdisk_size: 30
+  #   a_set: Managers-A-Set
+  #   admin_username: labuser00
+  #   admin_password: p2cjHA5UwkkB9e5S
+
+  # - name: worker-01
+  #   vmsize: Standard_B1s
+  #   nic: worker-01-nic
+  #   osdisk_type: Standard_LRS
+  #   osdisk_size: 30
+  #   a_set: workers-A-Set
+  #   admin_username: labuser00
+  #   admin_password: p2cjHA5UwkkB9e5S
+
+# traffic_manager:
+#   - name: Env-TrafficManager
+#     RelativeDnsName: "cloudWebapp" 
+#     Ttl: 30 
+#     TrafficRoutingMethod: "Performance" 
+#     MonitorProtocol: HTTP 
+#     MonitorPort: 80 
+#     MonitorPath: "/"
+
+# App_Gtw:
+#   - name: Env-AppGtw
+#     sku:
+#       name: standard_medium
+#       tier: standard
+#       capacity: 2
+#     GtwConfigSubnetId: AppGtw-Subnet.state.id
+#     GtwConfigname: app_gateway_ip_config
+#     frontendconfpip: AGT-pip
+#     frontendconfname: sample_gateway_frontend_ip_config
+#     frontendport: 80
+#     frontendname: ag_frontend_port
+#     backendpoolname: test_backend_address_pool
+#     backend_addresses: worker-01-nic.state.ip_configurations[0].private_ip_address
+#             # - Worker-02-nic.state.ip_configurations[0].private_ip_address
+#             # - Worker-03-nic.state.ip_configurations[0].private_ip_address
+        
+#     backend_http_settings_collection:
+#       - port: 80
+#         protocol: http
+#         cookie_based_affinity: enabled
+#         name: sample_appgateway_http_settings
+#     httplisteners_frontend_ip_configuration: sample_gateway_frontend_ip_config
+#     httplisteners_frontend_port: ag_frontend_port
+#     httplisteners_name: sample_http_listener
+#     routing_rule_type: Basic
+#     routing_backend_http_settings: sample_appgateway_http_settings
+#     routing_http_listener: sample_http_listener
+#     routing_rule_name: rule1
+      
+
+    
